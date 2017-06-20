@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
@@ -37,7 +38,8 @@ public class LeitorRFID : MonoBehaviour {
 		}
 	}
 
-	public void Update(){
+	void Update(){
+		stream.Open();
 		WriteToArduino("PING");
 	}
 
