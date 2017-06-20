@@ -24,6 +24,7 @@ void setup() {
   mfrc522.PCD_Init();   // Inicia MFRC522
   lcd.begin(16, 2); //Define o número de colunas e linhas do LCD
   sCmd.addCommand("PING", pingHandler);
+  sCmd.addCommand("ECHO", echoHandler);
   msgInicial();
 }
 
@@ -88,7 +89,7 @@ bool validar(String conteudo)  {
   return false;
 }
 
-void pingHandler (const char *command){
+void pingHandler(){
   Serial.println("PONG");
 }
 
