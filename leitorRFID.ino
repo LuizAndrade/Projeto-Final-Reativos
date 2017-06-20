@@ -1,34 +1,37 @@
 /*
-  Programa: Controle de Acesso com leitor RFID
-  Autores: Lucas Alves
-           Gustavo Silva
+  Programa: Yu-Gi-Oh! com leitor RFID
+  Autores: Gustavo Silva
            Luiz Andrade
 */
-
 #include <SPI.h>
 #include <MFRC522.h>
 #include <LiquidCrystal.h>
-#include <Servo.h>
+#include <SerialCommand.h>
 
 #define SS_PIN 10
 #define RST_PIN 9
-MFRC522 mfrc522(SS_PIN, RST_PIN);  // Cria instância MFRC522
 
+MFRC522 mfrc522(SS_PIN, RST_PIN);  // Cria instância MFRC522
 LiquidCrystal lcd(6, 7, 5, 4, 3, 2); // Inicializa a biblioteca com os números dos pins da interface
-Servo servo;
+SerialCommand sCmd;
+
 boolean reading = false;
 unsigned long int count;
 
 void setup() {
-//  Serial.begin(9600);   // Inicia a serial
+  Serial.begin(9600);   // Inicia a serial
   SPI.begin();      // Inicia  SPI bus
   mfrc522.PCD_Init();   // Inicia MFRC522
   lcd.begin(16, 2); //Define o número de colunas e linhas do LCD
-  servo.attach(8);
+  sCmd.addCommand("PING", pingHandler);
   msgInicial();
 }
 
 void loop() {
+
+  if (Serial.available() > 0){
+    sCmd.readSerial();
+  }
   
   if(reading && millis()-count >= 3000) {
     reading = false;
@@ -57,12 +60,11 @@ void loop() {
     //Serial.println();
 
   if(validar(conteudo)) {
-        rotacionarServo();
+        //rotacionarServo();
     }
 }
 
 void msgInicial() {
-  servo.write(90);
   lcd.clear();
   lcd.print(" Aproxime o seu");  
   lcd.setCursor(0,1);
@@ -79,24 +81,6 @@ bool validar(String conteudo)  {
         lcd.print("Acesso liberado!");
         return true;
   }
-  if(conteudo == "174184252154") { //UID 2 - RioCard do Lucas
-      lcd.print("Ola, Lucas!");
-        lcd.setCursor(0,1);
-        lcd.print("Seja bem-vindo!");
-        return true;
-  }
-  if(conteudo == "23518863174") { //UID 3 - BU do Luiz
-        lcd.print("Ola, Luiz!");
-        lcd.setCursor(0,1);
-        lcd.print("Seja bem-vindo!");
-        return true;
-  }
-  if(conteudo == "11111186222") { //UID 4 - RioCard do Gustavo
-    lcd.print("Ola, Gustavo!");
-    lcd.setCursor(0,1);
-    lcd.print("Seja bem-vindo!");
-    return true;
-  }
   //Cartões desconhecidos
   lcd.print("Ola, aluno!");
   lcd.setCursor(0,1);
@@ -104,6 +88,17 @@ bool validar(String conteudo)  {
   return false;
 }
 
-void rotacionarServo() {
-  servo.write(180);
+void pingHandler (const char *command){
+  Serial.println("PONG");
+}
+
+void echoHandler () {
+  char *arg;
+  arg = sCmd.next();
+  if (arg != NULL){
+    Serial.println(arg);
+  }
+  else{
+    Serial.println("nothing to echo");
+  }
 }
