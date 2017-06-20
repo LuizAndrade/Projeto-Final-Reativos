@@ -3,76 +3,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
+using System.Threading;
 
 public class LeitorRFID : MonoBehaviour {
 
-	public string port = "COM4";
+	private Thread thread;
+
+	private Queue outputQueue;
+	private Queue inputQueue;
+
+	public string port  = "COM4";
 	public int baudrate = 9600;
+	public bool looping = true;
 
 	private SerialPort stream;
 
-	public void Open(){
+	void Start(){
+		StartThread();
+	}
+
+	void Update(){
+		SendToArduino("PING");
+		Console.WriteLine(ReadFromArduino(stream.ReadTimeout));
+	}
+
+	public void StartThread(){
+		outputQueue = Queue.Synchronized( new Queue() );
+		inputQueue  = Queue.Synchronized( new Queue() );
+
+		thread = new Thread(ThreadLoop);
+		thread.Start();
+	}
+
+	public void ThreadLoop(){
+		// Opens the connection on the serial port
 		stream = new SerialPort(port, baudrate);
 		stream.ReadTimeout = 50;
 		stream.Open();
-	}
 
-	/*StartCoroutine(AsynchronousReadFromArduino(
-		(string s) => Debug.Log(s),     // Callback
-		() => Debug.LogError("Error!"), // Error callback
-		10f)                             // Timeout (seconds)
-	);*/
+		// Looping
+		while (IsLooping())
+		{
+			// Send to Arduino
+			if (outputQueue.Count != 0){
+				string command = (string) outputQueue.Dequeue();
+				WriteToArduino(command);
+			}
+
+			// Read from Arduino
+			string result = ReadFromArduino(stream.ReadTimeout);
+			if (result != null){
+				inputQueue.Enqueue(result);
+			}
+
+		}
+		stream.Close();
+	}
 
 	public void WriteToArduino(string message) {
 		stream.WriteLine(message);
         stream.BaseStream.Flush();
 	}
+	public void SendToArduino(string command){
+		outputQueue.Enqueue(command);
+	}
 
 	public string ReadFromArduino (int timeout = 0) {
-		stream.ReadTimeout = timeout;
-		try {
-			return stream.ReadLine();
-		}
-		catch (TimeoutException) {
+		if(inputQueue.Count == 0){
 			return null;
 		}
+		return (string) inputQueue.Dequeue();
 	}
 
-	void Update(){
-		stream.Open();
-		WriteToArduino("PING");
+	public bool IsLooping (){
+		lock (this){
+			return looping;
+		}
 	}
 
-	public IEnumerator AsynchronousReadFromArduino(Action<string> callback, Action fail = null, float timeout = float.PositiveInfinity) {
-	    DateTime initialTime = DateTime.Now;
-	    DateTime nowTime;
-	    TimeSpan diff = default(TimeSpan);
-
-	    string dataString = null;
-
-	    do {
-	        try {
-	            dataString = stream.ReadLine();
-	        }
-	        catch (TimeoutException) {
-	            dataString = null;
-	        }
-
-	        if (dataString != null)
-	        {
-	            callback(dataString);
-	            yield return null;
-	        } else
-	            yield return new WaitForSeconds(0.05f);
-
-	        nowTime = DateTime.Now;
-        	diff = nowTime - initialTime;
-
-    	} while (diff.Milliseconds < timeout);
-
-    	if (fail != null)
-        	fail();
-    	yield return null;
+	public void StopThread(){
+		lock(this){
+			looping = false;
+		}
 	}
 	public void Close(){
 		stream.Close();
