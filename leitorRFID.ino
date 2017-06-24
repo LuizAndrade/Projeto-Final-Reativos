@@ -25,7 +25,9 @@ void setup() {
   lcd.begin(16, 2); //Define o número de colunas e linhas do LCD
   sCmd.addCommand("PING", pingHandler);
   sCmd.addCommand("ECHO", echoHandler);
+  sCmd.addCommand("AAA", aHandler);
   msgInicial();
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -61,7 +63,7 @@ void loop() {
     //Serial.println();
 
   if(validar(conteudo)) {
-        //rotacionarServo();
+        //Serial.println(conteudo);
     }
 }
 
@@ -81,19 +83,24 @@ bool validar(String conteudo)  {
         lcd.setCursor(0,1);
         lcd.print("Acesso liberado!");
         return true;
-  }
+    } else if (conteudo == "1099148229") {
+        lcd.print("Ola, aluno!");
+        lcd.setCursor(0,1);
+        lcd.print("Acesso liberado!");
+        return true;
+    }
   //Cartões desconhecidos
-  lcd.print("Ola, aluno!");
+  lcd.print("Ola, estranho!");
   lcd.setCursor(0,1);
   lcd.print("Acesso Negado!");
   return false;
 }
 
-void pingHandler(){
-  Serial.println("PONG");
+void pingHandler(const char *command){
+  Serial.write(6);
 }
 
-void echoHandler () {
+void echoHandler (const char *command) {    
   char *arg;
   arg = sCmd.next();
   if (arg != NULL){
@@ -102,4 +109,12 @@ void echoHandler () {
   else{
     Serial.println("nothing to echo");
   }
+}
+
+void aHandler(const char *command){
+  Serial.write(9);
+  lcd.clear();
+  lcd.print("amanda amor da");  
+  lcd.setCursor(0,1);
+  lcd.print("minha vida S2 ");
 }
