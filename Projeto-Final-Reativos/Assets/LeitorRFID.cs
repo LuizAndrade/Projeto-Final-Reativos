@@ -1,3 +1,7 @@
+/* TODO:Fazer img 3D no Unity
+		Verificar troca de sinais Arduino/Unity
+
+*/
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +16,7 @@ public class LeitorRFID : MonoBehaviour {
 	private Queue outputQueue;
 	private Queue inputQueue;
 
-	public string port  = "COM4";
+	public string port  = "COM3";
 	public int baudrate = 9600;
 	public bool looping = true;
 	public int i = 0;
@@ -56,12 +60,6 @@ public class LeitorRFID : MonoBehaviour {
 		// Looping
 		while (IsLooping())
 		{
-			if (i<99){
-				i++;
-			}else{
-				Debug.Log("Parei kkk");
-				StopThread();
-			}
 			// Debug.Log("saindo da fila: ");
 			// Debug.Log(outputQueue.Count);
 			// Send to Arduino
@@ -83,8 +81,9 @@ public class LeitorRFID : MonoBehaviour {
 
 		}
 		stream.Close();
-		thread.Abort();
 	}
+
+	//Metodos Arduino
 
 	public void WriteToArduino(string message) {
 		stream.WriteLine(message);
@@ -100,11 +99,6 @@ public class LeitorRFID : MonoBehaviour {
 	}
 
 	public int ReadFromArduino (int timeout = 0) {
-		/*TODO:
-		Unity nao recebe do arduino
-		fazer ler com o ReadByte() e
-		empilhar na inputQueue.
-		*/
 		stream.ReadTimeout = timeout;
 		try{
 			return stream.ReadByte();
@@ -114,6 +108,20 @@ public class LeitorRFID : MonoBehaviour {
 
 	}
 
+	//Metodos Unity
+
+	public void OnApplicationQuit()
+	{
+		StopThread();
+
+		if(thread.IsAlive)
+		{
+			Debug.Log("thread nao morreu");
+			thread.Abort();
+		}
+	}
+
+	//Outros Metodos
 	public bool IsLooping (){
 		lock (this){
 			return looping;
