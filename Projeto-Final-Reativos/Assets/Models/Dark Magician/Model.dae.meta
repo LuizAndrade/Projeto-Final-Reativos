@@ -1,0 +1,238 @@
+fileFormatVersion: 2
+guid: 24c08b78bc38b43469423e5eb43b7d80
+timeCreated: 1498770790
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armor
+    100002: daiza
+    100004: FrontSkirt1
+    100006: FrontSkirt2
+    100008: FrontSkirt3
+    100010: FrontSkirt4
+    100012: FrontSkirt5
+    100014: FrontSkirt_end
+    100016: FrontUnderArmor
+    100018: FrontUnderArmor1
+    100020: FrontUpArmor
+    100022: FrontUpArmor1
+    100024: Head
+    100026: Hip
+    100028: LeftArm
+    100030: Leftfinger1
+    100032: Leftfinger12
+    100034: Leftfinger2
+    100036: Leftfinger22
+    100038: Leftfinger3
+    100040: Leftfinger32
+    100042: LeftFoot
+    100044: LeftForeArm
+    100046: LeftHair1
+    100048: LeftHair2
+    100050: LeftHair3
+    100052: LeftHair_end
+    100054: LeftHand
+    100056: LeftLeg
+    100058: LeftShoulderArmor
+    100060: LeftShoulderArmor1
+    100062: LeftToes
+    100064: LeftToes_end
+    100066: LeftUpLeg
+    100068: M002_blackmagician01
+    100070: M002_item01
+    100072: M002_Root
+    100074: mesh_0_M002_blackmagician01
+    100076: mesh_1_M002_blackmagician01
+    100078: mesh_2_M002_blackmagician01
+    100080: mesh_3_M002_blackmagician01
+    100082: mesh_4_M002_item01
+    100084: mesh_5_M002_item01
+    100086: //RootNode
+    100088: Neck
+    100090: Nw4cRoot
+    100092: RearSkirt1
+    100094: RearSkirt2
+    100096: RearSkirt3
+    100098: RearSkirt4
+    100100: RearSkirt5
+    100102: RearSkirt_end
+    100104: RearUnderArmor
+    100106: RearUnderArmor1
+    100108: RearUpArmor
+    100110: RearUpArmor1
+    100112: RightArm
+    100114: RightFoot
+    100116: RightForeArm
+    100118: RightHair1
+    100120: RightHair2
+    100122: RightHair3
+    100124: RightHair_end
+    100126: RightHand
+    100128: RightHand_buki
+    100130: RightHand_end
+    100132: RightLeg
+    100134: RightShoulderArmor
+    100136: RightShoulderArmor1
+    100138: RightToes
+    100140: RightToes_end
+    100142: RightUpLeg
+    100144: Spine1
+    100146: Spine2
+    400000: Armor
+    400002: daiza
+    400004: FrontSkirt1
+    400006: FrontSkirt2
+    400008: FrontSkirt3
+    400010: FrontSkirt4
+    400012: FrontSkirt5
+    400014: FrontSkirt_end
+    400016: FrontUnderArmor
+    400018: FrontUnderArmor1
+    400020: FrontUpArmor
+    400022: FrontUpArmor1
+    400024: Head
+    400026: Hip
+    400028: LeftArm
+    400030: Leftfinger1
+    400032: Leftfinger12
+    400034: Leftfinger2
+    400036: Leftfinger22
+    400038: Leftfinger3
+    400040: Leftfinger32
+    400042: LeftFoot
+    400044: LeftForeArm
+    400046: LeftHair1
+    400048: LeftHair2
+    400050: LeftHair3
+    400052: LeftHair_end
+    400054: LeftHand
+    400056: LeftLeg
+    400058: LeftShoulderArmor
+    400060: LeftShoulderArmor1
+    400062: LeftToes
+    400064: LeftToes_end
+    400066: LeftUpLeg
+    400068: M002_blackmagician01
+    400070: M002_item01
+    400072: M002_Root
+    400074: mesh_0_M002_blackmagician01
+    400076: mesh_1_M002_blackmagician01
+    400078: mesh_2_M002_blackmagician01
+    400080: mesh_3_M002_blackmagician01
+    400082: mesh_4_M002_item01
+    400084: mesh_5_M002_item01
+    400086: //RootNode
+    400088: Neck
+    400090: Nw4cRoot
+    400092: RearSkirt1
+    400094: RearSkirt2
+    400096: RearSkirt3
+    400098: RearSkirt4
+    400100: RearSkirt5
+    400102: RearSkirt_end
+    400104: RearUnderArmor
+    400106: RearUnderArmor1
+    400108: RearUpArmor
+    400110: RearUpArmor1
+    400112: RightArm
+    400114: RightFoot
+    400116: RightForeArm
+    400118: RightHair1
+    400120: RightHair2
+    400122: RightHair3
+    400124: RightHair_end
+    400126: RightHand
+    400128: RightHand_buki
+    400130: RightHand_end
+    400132: RightLeg
+    400134: RightShoulderArmor
+    400136: RightShoulderArmor1
+    400138: RightToes
+    400140: RightToes_end
+    400142: RightUpLeg
+    400144: Spine1
+    400146: Spine2
+    4300000: mesh_0_M002_blackmagician01
+    4300002: mesh_1_M002_blackmagician01
+    4300004: mesh_4_M002_item01
+    4300006: mesh_2_M002_blackmagician01
+    4300008: mesh_3_M002_blackmagician01
+    4300010: mesh_5_M002_item01
+    9500000: //RootNode
+    13700000: mesh_0_M002_blackmagician01
+    13700002: mesh_1_M002_blackmagician01
+    13700004: mesh_2_M002_blackmagician01
+    13700006: mesh_3_M002_blackmagician01
+    13700008: mesh_4_M002_item01
+    13700010: mesh_5_M002_item01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

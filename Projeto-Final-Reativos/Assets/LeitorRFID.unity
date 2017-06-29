@@ -139,11 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b229b284a23a24593153061ec4f630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: COM4
-  baudrate: 9600
-  looping: 1
-  i: 0
-  j: 0
+  blueEyesDragon: {fileID: 4276846405331992, guid: 6e7fc6ff56a94fa49bed29eb395dca36,
+    type: 2}
+  darkMagician: {fileID: 4544402985930458, guid: 8d439693bd933d44cafe94e2d2d9af50,
+    type: 2}
 --- !u!81 &1722036532
 AudioListener:
   m_ObjectHideFlags: 0
@@ -208,7 +207,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722036530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.87, z: -13.23}
+  m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
