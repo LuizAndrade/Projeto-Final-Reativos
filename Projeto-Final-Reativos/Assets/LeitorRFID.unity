@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b229b284a23a24593153061ec4f630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  port: COM4
+  baudrate: 9600
+  looping: 1
+  i: 0
+  j: 0
 --- !u!81 &1722036532
 AudioListener:
   m_ObjectHideFlags: 0

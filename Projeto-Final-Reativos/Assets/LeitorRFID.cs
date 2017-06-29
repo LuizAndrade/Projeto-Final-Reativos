@@ -16,7 +16,7 @@ public class LeitorRFID : MonoBehaviour {
 	private Queue outputQueue;
 	private Queue inputQueue;
 
-	public string port  = "COM3";
+	public string port  = "COM4";
 	public int baudrate = 9600;
 	public bool looping = true;
 	public int i = 0;
@@ -28,23 +28,14 @@ public class LeitorRFID : MonoBehaviour {
 		StartThread();
 	}
 
-	void Update(){
-		if (j == 0){
-			SendToArduino("AAA");
-			j = 1;
-		}else{
-			SendToArduino("PING");
-			j = 0;
-		}
-		Console.WriteLine(ReadFromArduino(stream.ReadTimeout));
-		//  GetFromArduino();
+	void Update()
+	{
+		Debug.Log(GetFromArduino());
 	}
 
 	public void StartThread(){
 		outputQueue = Queue.Synchronized( new Queue() );
 		inputQueue  = Queue.Synchronized( new Queue() );
-
-		// Debug.Log("1");
 
 		thread = new Thread(ThreadLoop);
 		thread.Start();
@@ -55,47 +46,47 @@ public class LeitorRFID : MonoBehaviour {
 		stream = new SerialPort(port, baudrate);
 		stream.ReadTimeout = 50;
 		stream.Open();
-		// Debug.Log("2");
 
 		// Looping
 		while (IsLooping())
 		{
-			// Debug.Log("saindo da fila: ");
-			// Debug.Log(outputQueue.Count);
 			// Send to Arduino
 			if (outputQueue.Count != 0){
 
 				string command = (string) outputQueue.Dequeue();
-				// Debug.Log("enviado\n");
 				WriteToArduino(command);
 			}
 
 			// Read from Arduino
 			int result = ReadFromArduino(stream.ReadTimeout);
-			Debug.Log(result);
 
 			if (result != -1){
 				inputQueue.Enqueue(result);
 			}
-			// Debug.Log("entrando na fila:");
-
 		}
 		stream.Close();
 	}
 
 	//Metodos Arduino
 
-	public void WriteToArduino(string message) {
-		stream.WriteLine(message);
-        stream.BaseStream.Flush();
-	}
 	public void SendToArduino(string command){
 		outputQueue.Enqueue(command);
 	}
 
-	public void GetFromArduino(){
-		int result = stream.ReadByte();
-		inputQueue.Enqueue(result);
+	public int GetFromArduino(){
+
+		if (inputQueue.Count != 0)
+		{
+			int command = (int) inputQueue.Dequeue();
+			return command;
+		}
+
+		return -1;
+	}
+
+	public void WriteToArduino(string message) {
+		stream.WriteLine(message);
+        stream.BaseStream.Flush();
 	}
 
 	public int ReadFromArduino (int timeout = 0) {
@@ -105,7 +96,6 @@ public class LeitorRFID : MonoBehaviour {
 		}catch(TimeoutException){
 			return -1;
 		}
-
 	}
 
 	//Metodos Unity
@@ -116,7 +106,6 @@ public class LeitorRFID : MonoBehaviour {
 
 		if(thread.IsAlive)
 		{
-			Debug.Log("thread nao morreu");
 			thread.Abort();
 		}
 	}
