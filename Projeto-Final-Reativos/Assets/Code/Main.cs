@@ -11,35 +11,46 @@ public class Main : MonoBehaviour
 	private int xPos = 0;
 	private float speed = 5;
 	private bool summoned = false;
+    private string port = ""; 
 
-	void Start()
-	{
-		StartConnection();
-	}
+    void OnGUI()
+    {
+        GUI.contentColor = Color.yellow;
+        GUI.Label(new Rect((Screen.width/2) - 50, (Screen.height/2) - 10, 100, 20), "Digite a Serial Port:");
+        port = GUI.TextField(new Rect((Screen.width/2) - 100, (Screen.height/ 2) + 20, 200, 20), port, 25);
+
+        if (GUI.Button(new Rect((Screen.width/2) - 25, (Screen.height/2) + 40, 50, 30), "Ok"))
+        {
+            StartConnection();
+        }
+    }
 
 	void Update()
 	{
-		SummonMonster(con.Get());
+        if (con != null)
+        {
+            SummonMonster(con.Get());
 
-		if(summoned)
-		{
-			MoveCamera();
-		}
+            if (summoned)
+            {
+                MoveCamera();
+            }
 
-		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-		{
-			transform.Translate(Vector3.right * Time.deltaTime * speed * -1);
-		}
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector3.right * Time.deltaTime * speed * -1);
+            }
 
-		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-		{
-			transform.Translate(Vector3.right * Time.deltaTime * speed);
-		}
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(Vector3.right * Time.deltaTime * speed);
+            }
+        }
 	}
 
 	private void StartConnection()
 	{
-		con = new ConnectionHandler();
+		con = new ConnectionHandler(port);
 		con.Start();
 	}
 

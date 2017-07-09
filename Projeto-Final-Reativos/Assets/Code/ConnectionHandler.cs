@@ -4,20 +4,27 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 
+using UnityEngine;
+
 public class ConnectionHandler
 {
 	private SerialPort stream;
 	private Thread thread;
-	private string port  = "COM4";
+	private string port  = "";
 	private int baudrate = 9600;
 	private bool looping = true;
 
 	private Queue outputQueue;
 	private Queue inputQueue;
 
+    public ConnectionHandler(string port)
+    {
+        this.port = port;
+    }
+
 	public void Start()
 	{
-		outputQueue = Queue.Synchronized( new Queue() );
+        outputQueue = Queue.Synchronized( new Queue() );
 		inputQueue  = Queue.Synchronized( new Queue() );
 
 		thread = new Thread(ThreadLoop);
@@ -25,15 +32,17 @@ public class ConnectionHandler
 	}
 
 	public void ThreadLoop()
-	{
-		// Opens the connection on the serial port
-		stream = new SerialPort(port, baudrate);
+    {
+        // Opens the connection on the serial port
+        stream = new SerialPort(port, baudrate);
 		stream.ReadTimeout = 50;
-		stream.Open();
-		string stringResult = "";
-
-		// Looping
-		while (IsLooping())
+        MonoBehaviour.print("Porta: " + port);
+        stream.Open();
+        MonoBehaviour.print("Porta deps open: " + port);
+        string stringResult = "";
+       
+        // Looping
+        while (IsLooping())
 		{
 			// Send to Arduino
 			if (outputQueue.Count != 0){
