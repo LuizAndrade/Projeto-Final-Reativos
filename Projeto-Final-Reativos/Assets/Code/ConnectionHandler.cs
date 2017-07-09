@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 
-using UnityEngine;
-
 public class ConnectionHandler
 {
 	private SerialPort stream;
@@ -36,9 +34,7 @@ public class ConnectionHandler
         // Opens the connection on the serial port
         stream = new SerialPort(port, baudrate);
 		stream.ReadTimeout = 50;
-        MonoBehaviour.print("Porta: " + port);
         stream.Open();
-        MonoBehaviour.print("Porta deps open: " + port);
         string stringResult = "";
        
         // Looping

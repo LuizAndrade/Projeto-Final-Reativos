@@ -11,17 +11,22 @@ public class Main : MonoBehaviour
 	private int xPos = 0;
 	private float speed = 5;
 	private bool summoned = false;
-    private string port = ""; 
+    private string port = "";
+    private bool showGUI = true;
 
     void OnGUI()
     {
-        GUI.contentColor = Color.yellow;
-        GUI.Label(new Rect((Screen.width/2) - 50, (Screen.height/2) - 10, 100, 20), "Digite a Serial Port:");
-        port = GUI.TextField(new Rect((Screen.width/2) - 100, (Screen.height/ 2) + 20, 200, 20), port, 25);
-
-        if (GUI.Button(new Rect((Screen.width/2) - 25, (Screen.height/2) + 40, 50, 30), "Ok"))
+        if (showGUI)
         {
-            StartConnection();
+            GUI.contentColor = Color.yellow;
+            GUI.Label(new Rect((Screen.width / 2) - 50, (Screen.height / 2) - 10, 100, 20), "Digite a Serial");
+            port = GUI.TextField(new Rect((Screen.width / 2) - 100, (Screen.height / 2) + 20, 200, 20), port, 25);
+
+            if (GUI.Button(new Rect((Screen.width / 2) - 25, (Screen.height / 2) + 40, 50, 30), "Ok"))
+            {
+                StartConnection();
+                showGUI = false;
+            }
         }
     }
 
@@ -96,6 +101,7 @@ public class Main : MonoBehaviour
 
 	public void OnApplicationQuit()
 	{
-		con.Kill();
+        if(con != null)
+		    con.Kill();
 	}
 }
